@@ -1,0 +1,72 @@
+{
+  "name": "List Google Drive File",
+  "version": "0.0.1",
+  "type": "flogo:activity",
+  "ref": "github.com/DipeshTest/gdrivelist",
+  "description": "activity description",
+  "author": "AllStars",
+  "inputs":[
+    {
+		"name": "accessToken",
+		"type": "string",
+    "required": true
+	},
+	{
+		"name": "fileName",
+		"type": "string"
+
+	},
+	{
+		"name": "orderBy",
+		"type": "string",
+    "allowed": [
+        "createdTime",
+        "modifiedByMeTime",
+        "modifiedTime",
+        "name",
+        "recency",
+        "starred",
+        "viewedByMeTime",
+        "sharedWithMeTime",
+        "quotaBytesUsed"
+      ]
+
+	},
+  {
+		"name": "pageSize",
+		"type": "int",
+    "value": 50
+
+	},
+  {
+		"name": "nextPageToken",
+		"type": "string"
+
+	},
+  {
+		"name": "timeout",
+		"type": "string",
+    "value": "120"
+
+	}
+
+  ],
+  "outputs": [
+    {
+      "name": "statusCode",
+      "type": "string"
+    },
+    {
+      "name": "message",
+      "type": "any"
+    },
+    {
+      "name": "fileCount",
+      "type": "int"
+    },
+    {
+      "name": "nextPageToken",
+      "type": "string"
+    }
+  ]
+}
