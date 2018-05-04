@@ -1,43 +1,85 @@
 ---
-title: Counter
-weight: 4609
+title: List GDrive Files
+weight: 1
 ---
 
 # Counter
-This activity allows you to use a global counter.
+This activity lists the files from Gdrive account.
 
 ## Installation
 ### Flogo Web
 This activity comes out of the box with the Flogo Web UI
 ### Flogo CLI
 ```bash
-flogo add activity github.com/TIBCOSoftware/flogo-contrib/activity/counter
+flogo add activity github.com/DipeshTest/gdrivelist
 ```
 
 ## Schema
 Inputs and Outputs:
 
 ```json
-{
-  "input":[
+"inputs":[
     {
-      "name": "counterName",
-      "type": "string",
-      "required": true
-    },
-    {
-      "name": "increment",
-      "type": "boolean"
-    },
-    {
-      "name": "reset",
-      "type": "boolean"
-    }
+		"name": "accessToken",
+		"type": "string",
+    "required": true
+	},
+	{
+		"name": "fileName",
+		"type": "string"
+
+	},
+	{
+		"name": "orderBy",
+		"type": "string",
+    "allowed": [
+        "createdTime",
+        "modifiedByMeTime",
+        "modifiedTime",
+        "name",
+        "recency",
+        "starred",
+        "viewedByMeTime",
+        "sharedWithMeTime",
+        "quotaBytesUsed"
+      ]
+
+	},
+  {
+		"name": "pageSize",
+		"type": "int",
+    "value": 50
+
+	},
+  {
+		"name": "nextPageToken",
+		"type": "string"
+
+	},
+  {
+		"name": "timeout",
+		"type": "string",
+    "value": "120"
+
+	}
+
   ],
-  "output": [
+  "outputs": [
     {
-      "name": "value",
-      "type": "integer"
+      "name": "statusCode",
+      "type": "string"
+    },
+    {
+      "name": "message",
+      "type": "any"
+    },
+    {
+      "name": "fileCount",
+      "type": "int"
+    },
+    {
+      "name": "nextPageToken",
+      "type": "string"
     }
   ]
 }
@@ -45,61 +87,17 @@ Inputs and Outputs:
 ## Settings
 | Setting     | Required | Description |
 |:------------|:---------|:------------|
-| counterName | True     | The name of the counter |         
-| increment   | False    | If this field is set to true, increment the counter by one |
-| reset       | False    | Reset the counter. _If reset is set to true, increment is ignored_|
-| value       | False    | The value of the counter after executing the increment or reset |
+| accessToken | True     | The access token for your account |         
+| fileName   | False    | Name of the file to search |
+| orderBy    | False     | Key to sort list of files |  
+| pageSize   | False     | The maximum number of files to return per page |
+| nextPageToken | False  | The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response | 
+| timeout       | False    | Timeout value for the delete call, default value is 120 seconds|
 
 ## Examples
 ### Increment
-The below example increments a 'messages' counter:
+The below example for a sample delete:
 
 ```json
-{
-  "id": "counter_1",
-  "name": "Increment Counter",
-  "description": "Simple Global Counter Activity",
-  "activity": {
-    "ref": "github.com/TIBCOSoftware/flogo-contrib/activity/counter",
-    "input": {
-      "counterName": "messages",
-      "increment": true
-    }
-  }
-}
-```
 
-### Get
-The below example retrieves the last value of the 'messages' counter:
-
-```json
-{
-  "id": "counter_1",
-  "name": "Increment Counter",
-  "description": "Simple Global Counter Activity",
-  "activity": {
-    "ref": "github.com/TIBCOSoftware/flogo-contrib/activity/counter",
-    "input": {
-      "counterName": "messages"
-    }
-  }
-}
-```
-
-### Reset
-The below example resets the 'messages' counter:
-
-```json
-{
-  "id": "counter_1",
-  "name": "Increment Counter",
-  "description": "Simple Global Counter Activity",
-  "activity": {
-    "ref": "github.com/TIBCOSoftware/flogo-contrib/activity/counter",
-    "input": {
-      "counterName": "messages",
-      "reset": true
-    }
-  }
-}
 ```
