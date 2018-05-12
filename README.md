@@ -41,6 +41,7 @@ Inputs and Outputs:
 			"viewedByMeTime",
 			"sharedWithMeTime",
 			"quotaBytesUsed"
+			]
 	},
 	{
 		"name": "pageSize",
