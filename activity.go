@@ -3,8 +3,7 @@ package gdrivelist
 import (
 	s "strings"
 
-	"github.com/DipeshTest/allstarsshared/GDrive"
-
+	"github.com/DipeshTest/allstarsshared/gdrive"
 	"github.com/TIBCOSoftware/flogo-lib/core/activity"
 	"github.com/TIBCOSoftware/flogo-lib/logger"
 )
@@ -37,13 +36,11 @@ func (a *MyActivity) Eval(context activity.Context) (done bool, err error) {
 	timeout := s.TrimSpace(context.GetInput("timeout").(string))
 
 	if len(s.TrimSpace(accessToken)) == 0 {
-		//	fmt.Println(Twilio.ResponseData{501, "Failed", "Send input numbers back", "SMS body is blank"})
+
 		context.SetOutput("statusCode", "105")
 
 		context.SetOutput("message", "Access Token field is blank")
-		//context.SetOutput("failedNumbers", to)
 
-		//respond with this
 	} else {
 		if pageSize == 0 {
 			pageSize = 50
@@ -53,7 +50,7 @@ func (a *MyActivity) Eval(context activity.Context) (done bool, err error) {
 			timeout = "120"
 		}
 
-		code, msg, size, pageToken := GDrive.ListFile(accessToken, fileName, orderBy, int64(pageSize), nextPageToken, timeout)
+		code, msg, size, pageToken := gdrive.ListFile(accessToken, fileName, orderBy, int64(pageSize), nextPageToken, timeout)
 		context.SetOutput("statusCode", code)
 
 		context.SetOutput("message", msg)
