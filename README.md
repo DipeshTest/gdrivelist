@@ -99,10 +99,12 @@ Please refer activity_test.go
 
 
 ## Response Codes
-### Google Drive Create
+### Google Drive List
 | ResponseCode     | Type | Description |
 |:------------|:---------|:------------|
 |200 |OK| The request was successful and the response body contains the representation requested. *If the file is not present, the response count would be 0|
 |105 |INVALID INPUT| Access token is not specified.|
 |400 |SERVER ERROR| Invalid values specified for either pageSize, nextPageToken or Timeout.|
 |401 |AUTHENTICATION ERROR| Invalid Access Token.|
+
+Note - Please refer link - https://developers.google.com/doubleclick-search/v2/standard-error-responses for other standard error responses from Google 
